@@ -1,0 +1,130 @@
+@import "tailwindcss";
+
+@theme inline {
+  --color-primary: #1E3A5F;
+  --color-bg: #F8FAFC;
+  --color-surface: #FFFFFF;
+  --color-border: #E2E8F0;
+  --color-text-primary: #0F172A;
+  --color-text-secondary: #64748B;
+  --color-accent: #2563EB;
+  --color-success: #10B981;
+  --color-error: #EF4444;
+  --color-warning: #F59E0B;
+
+  --font-heading: var(--font-plus-jakarta-sans), sans-serif;
+  --font-body: var(--font-inter), sans-serif;
+  --font-data: var(--font-jetbrains-mono), monospace;
+
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-full: 9999px;
+
+  --animate-fade-in: fade-in 200ms ease-out;
+  --animate-slide-up: slide-up 200ms ease-out;
+  --animate-slide-in: slideIn 200ms ease-out;
+  --animate-scale-in: scale-in 200ms ease-out;
+  --animate-stagger-1: slide-up 200ms ease-out 50ms both;
+  --animate-stagger-2: slide-up 200ms ease-out 100ms both;
+  --animate-stagger-3: slide-up 200ms ease-out 150ms both;
+  --animate-stagger-4: slide-up 200ms ease-out 200ms both;
+}
+
+body {
+  background: var(--color-bg);
+  color: var(--color-text-primary);
+  font-family: var(--font-body);
+}
+
+/* Animation keyframes */
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slide-up {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scale-in {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Focus ring utility — consistent across all interactive elements */
+*:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
+}
+
+/* Custom range slider styling */
+input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 6px;
+  background: var(--color-border);
+  border-radius: 9999px;
+  outline: none;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--color-accent);
+  cursor: pointer;
+  border: 2px solid white;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
+  transition: transform 120ms ease-out;
+}
+
+input[type="range"]::-webkit-slider-thumb:hover {
+  transform: scale(1.15);
+}
+
+input[type="range"]::-webkit-slider-thumb:active {
+  transform: scale(0.95);
+}
+
+/* Custom checkbox */
+input[type="checkbox"] {
+  accent-color: var(--color-accent);
+}
+
+/* Smooth scroll */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Selection color */
+::selection {
+  background: color-mix(in srgb, var(--color-accent) 20%, transparent);
+}

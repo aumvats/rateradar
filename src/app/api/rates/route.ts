@@ -1,0 +1,29 @@
+import { NextRequest, NextResponse } from 'next/server';
+
+export async function GET(request: NextRequest) {
+  const { searchParams } = request.nextUrl;
+  const from = searchParams.get('from') ?? 'USD';
+  const to = searchParams.get('to') ?? 'EUR';
+
+  try {
+    const res = await fetch(
+      `https://api.frankfurter.app/latest?from=${encodeURIComponent(from)}&to=${encodeURIComponent(to)}`,
+      { next: { revalidate: 300 } } // 5-minute cache
+    );
+
+    if (!res.ok) {
+      return NextResponse.json(
+        { error: 'Failed to fetch rates' },
+        { status: res.status }
+      );
+    }
+
+    const data = await res.json();
+    return NextResponse.json(data);
+  } catch {
+    return NextResponse.json(
+      { error: 'Rate service unavailable' },
+      { status: 503 }
+    );
+  }
+}
