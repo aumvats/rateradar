@@ -21,7 +21,7 @@ export async function GET(request: NextRequest) {
 
   // Fetch all active alerts
   const { data: alerts, error: alertError } = await supabase
-    .from('alerts')
+    .from('rateradar_alerts')
     .select('*')
     .eq('active', true);
 
@@ -134,7 +134,7 @@ export async function GET(request: NextRequest) {
       // Update alert
       // If this update fails, the alert stays active and may re-trigger on the next cron run
       const { error: updateError } = await supabase
-        .from('alerts')
+        .from('rateradar_alerts')
         .update({
           last_triggered_at: new Date().toISOString(),
           ...(alert.notify_once ? { active: false } : {}),

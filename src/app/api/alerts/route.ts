@@ -20,7 +20,7 @@ export async function GET(request: NextRequest) {
   }
 
   const { data, error } = await supabase
-    .from('alerts')
+    .from('rateradar_alerts')
     .select('*')
     .eq('user_id', userId)
     .order('created_at', { ascending: false });
@@ -52,13 +52,13 @@ export async function POST(request: NextRequest) {
 
   // Check plan alert limit
   const { count } = await supabase
-    .from('alerts')
+    .from('rateradar_alerts')
     .select('*', { count: 'exact', head: true })
     .eq('user_id', userId)
     .eq('active', true);
 
   const { data: prefs } = await supabase
-    .from('user_preferences')
+    .from('rateradar_user_preferences')
     .select('plan')
     .eq('user_id', userId)
     .single();
@@ -74,7 +74,7 @@ export async function POST(request: NextRequest) {
   }
 
   const { data, error } = await supabase
-    .from('alerts')
+    .from('rateradar_alerts')
     .insert({
       user_id: userId,
       from_currency: body.fromCurrency,
@@ -110,7 +110,7 @@ export async function DELETE(request: NextRequest) {
   }
 
   const { error } = await supabase
-    .from('alerts')
+    .from('rateradar_alerts')
     .delete()
     .eq('id', alertId)
     .eq('user_id', userId);
